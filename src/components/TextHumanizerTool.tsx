@@ -88,10 +88,10 @@ const TextHumanizerTool = ({
   return (
     <div className="w-full max-w-6xl mx-auto bg-background p-4 rounded-xl">
       <SubscriptionBanner
-        subscription={userSubscription}
+        userSubscription={userSubscription}
         wordCount={wordCount}
         wordLimit={wordLimit}
-        isOverLimit={isOverLimit}
+        onUpgrade={() => console.log("Upgrade clicked")}
       />
 
       <Card className="mt-4 border-2 shadow-lg">
@@ -140,9 +140,8 @@ const TextHumanizerTool = ({
               </div>
 
               <HumanizationControls
-                settings={humanizationSettings}
-                onSettingsChange={setHumanizationSettings}
-                disabled={!inputText.trim() || isProcessing}
+                onProcess={handleProcessText}
+                isProcessing={isProcessing}
               />
             </TabsContent>
 
@@ -156,8 +155,10 @@ const TextHumanizerTool = ({
                   <ResultsDisplay
                     originalText={inputText}
                     humanizedText={humanizedText}
-                    aiScore={aiScore || 0}
+                    aiDetectionScore={aiScore || 0}
                     onProcessAnother={() => setActiveTab("input")}
+                    onSaveToHistory={() => console.log("Saved to history")}
+                    isLoggedIn={false}
                   />
                 </motion.div>
               )}
